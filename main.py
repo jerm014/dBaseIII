@@ -50,7 +50,8 @@ class DBASETable:
     @classmethod
     def from_dict(cls, data):
         table = cls(data["name"])
-        table.fields = OrderedDict((name, Field.from_dict(field_data)) for name, field_data in data["fields"].items())
+        table.fields = OrderedDict((name, Field.from_dict(field_data)) for name,
+                                   field_data in data["fields"].items())
         table.records = data["records"]
         table.current_record = data["current_record"]
         return table
@@ -116,7 +117,8 @@ class DBASEInterpreter(cmd.Cmd):
             return
         args = shlex.split(arg)
         if len(args) < 3:
-            print("Invalid ADD FIELD command. Use 'ADD FIELD <name> <type> <width> [<decimals>]'.")
+            print("Invalid ADD FIELD command. Use 'ADD FIELD <name> 
+                <type> <width> [<decimals>]'.")
             return
         name, type, width = args[:3]
         decimals = args[3] if len(args) > 3 else 0
@@ -130,7 +132,8 @@ class DBASEInterpreter(cmd.Cmd):
             return
         values = shlex.split(arg)
         if len(values) != len(self.current_table.fields):
-            print(f"Invalid number of values. Expected {len(self.current_table.fields)}, got {len(values)}.")
+            print(f"Invalid number of values. Expected {len(self.current_table.fields)},
+                got {len(values)}.")
             return
         self.current_table.add_record(values)
         print("Record added.")
@@ -211,7 +214,8 @@ class DBASEInterpreter(cmd.Cmd):
         fields_to_list.extend(related_fields)
 
         # Print header
-        header = " ".join(f"{field:{self.get_field_width(field)}}" for field in fields_to_list)
+        header = " ".join(f"{field:{self.get_field_width(field)}}"
+                          for field in fields_to_list)
         if self.show_record_numbers:
             header = "Record# " + header
         print(header)
@@ -248,10 +252,12 @@ class DBASEInterpreter(cmd.Cmd):
             if '.' in field:
                 # This is a related field
                 related_table, related_field = field.split('.')
-                relation = next((r for r in self.relations if r[0] == self.current_table.name and r[2] == related_table), None)
+                relation = next((r for r in self.relations if r[0] == self.current_table.name
+                                 and r[2] == related_table), None)
                 if relation:
                     key_field, key_value = relation[1], record[list(self.current_table.fields.keys()).index(relation[1])]
-                    related_record = next((r for r in self.tables[related_table].records if r[list(self.tables[related_table].fields.keys()).index(key_field)] == key_value), None)
+                    related_record = next((r for r in self.tables[related_table].records
+                                           if r[list(self.tables[related_table].fields.keys()).index(key_field)] == key_value), None)
                     if related_record:
                         value = related_record[list(self.tables[related_table].fields.keys()).index(related_field)]
                     else:
