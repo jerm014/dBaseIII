@@ -257,7 +257,8 @@ class DBASEInterpreter(cmd.Cmd):
                 if relation:
                     key_field, key_value = relation[1], record[list(self.current_table.fields.keys()).index(relation[1])]
                     related_record = next((r for r in self.tables[related_table].records
-                                           if r[list(self.tables[related_table].fields.keys()).index(key_field)] == key_value), None)
+                                           if r[list(self.tables[related_table].fields.keys()).index(key_field)] 
+                                               == key_value), None)
                     if related_record:
                         value = related_record[list(self.tables[related_table].fields.keys()).index(related_field)]
                     else:
