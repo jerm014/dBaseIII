@@ -4,6 +4,7 @@ import json
 import os
 from collections import OrderedDict
 
+
 class Field:
     def __init__(self, name, type, width, decimals=0):
         self.name = name
