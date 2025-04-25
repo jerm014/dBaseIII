@@ -1,5 +1,7 @@
 # dBASE III+ Python Clone
 
+![dBASE III+ screenshot](dbaseiii.png)
+
 A lightweight Python implementation of a dBASE III+ compatible database system. This project provides a command-line interface for managing database tables in the style of the classic dBASE III+ software.
 
 ## Features
